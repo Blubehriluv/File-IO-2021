@@ -1,0 +1,3 @@
+﻿  FileIO.cpp
+C:\Users\taymcken\Documents\GitHub\File-IO-2021\Profile Saver\File IO\FileIO.cpp(17,20): warning C4018:  '<': signed/unsigned mismatch
+  File IO.vcxproj -> C:\Users\taymcken\Documents\GitHub\File-IO-2021\Profile Saver\Debug\File IO.exe
