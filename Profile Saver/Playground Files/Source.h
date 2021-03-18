@@ -2,7 +2,7 @@
 
 void WriteToFile();
 
-void ReadFile();
+//void ReadFile();
 
 void NewUserCheck();
 

@@ -30,7 +30,7 @@ void NameAccept()
 
 	ofstream MyFile("Player_Names_Test.txt");
 
-	NewUserCheck();
+	NewerUserCheck();
 
 	// assign user to player slot
 	accounts[currentNewUser] == user;
@@ -40,7 +40,7 @@ void NameAccept()
 	ReadFile();
 }
 
-void NewUserCheck()
+void NewerUserCheck()
 {
 	if (accounts[currentNewUser] == "") {
 		cout << "New user being created in space "<< accounts[currentNewUser] << endl;
@@ -48,11 +48,11 @@ void NewUserCheck()
 	}
 	else{
 		currentNewUser++;
-		NewUserCheck();
+		NewerUserCheck();
 	}
 }
 
-// 
+// This reads the file and prints it to the screen for the user.
 void ReadFile()
 {
 	string myText;
