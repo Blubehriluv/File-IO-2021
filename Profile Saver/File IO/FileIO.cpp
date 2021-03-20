@@ -6,13 +6,14 @@
 #include "FileIO.h"
 
 int currentNewUser = 0;
-std::string user;
-std::string playerOne, playerTwo, playerThree, playerFour, playerFive;
-std::string accounts[5] = { playerOne, playerTwo, playerThree, playerFour, playerFive };
+const int maxAccountNumber = 5;
+std::string user;																							// Represents the actions of the current user
+std::string playerOne, playerTwo, playerThree, playerFour, playerFive;										// Holds names of players to be pulled from Array
+std::string accounts[maxAccountNumber] = { playerOne, playerTwo, playerThree, playerFour, playerFive };		// Array to hold player names, account register limit
 
-
+// Main function that runs the program
 int main() {
-
+	
 	Introduction();
 
 	NewUserCheck();
@@ -32,31 +33,43 @@ void Introduction()
 void NameAccept()
 {
 	std::cout << "Give me a name" << std::endl;
+	// The program takes the user input and assigns it to user
 	std::cin >> user;
 	std::cout << std::endl;
 	std::cout << "You have given me the name, " << user << "." << std::endl;
 	std::cout << "Is this correct?  Cool." << std::endl;
 
-	std::ofstream MyFile("Player_Names_Test.txt");
+	// Ofstream is creating the file Player Names Test
+	std::ofstream MyFile("Player_Names_Test.txt", std::ios_base::app);
 
+	// Calls the function that begins the process of adding a new account
 	AddNewUser(MyFile);
 }
 
-// This is the process of the program adding the name to the 
+// Program checks to see if the user is new, and if new, adds them to the database
 void AddNewUser(std::ofstream& MyFile)
 {
+	// Space is available and a new account will be added (The opening is blank)
 	if (accounts[currentNewUser] == "") {
 		std::cout << "New user being created in space ' " << currentNewUser << " '." << std::endl;
 		system("Pause");
 	}
+	// Space is not available because the final slot is filled (The opening is not blank)
+	else if (accounts[currentNewUser] != "") {
+		std::cout << "No more accounts can be created on this system." << std::endl;
+		system("Pause");
+	}
+	// This right now just makes the program loop to keep accepting answers
 	else {
-		currentNewUser++;
+		// Change this to kick back out to the main menu.
 		NewUserCheck();
 	}
 
-	// assign user to player slot
+	// Assign user to player slot
 	accounts[currentNewUser] == user;
-	MyFile << currentNewUser + 1 << ". " << user << std::endl;
+	MyFile << currentNewUser + 1 << ". " << user << "\n" << std::endl;
+	currentNewUser++;
+	std::cout << currentNewUser << std::endl;
 	MyFile.close();
 
 	ReadFile();
@@ -74,7 +87,14 @@ void NewUserCheck()
 		ExitProgram();
 	}
 	else if (userInput == "Y" || userInput == "YES") {
-		NameAccept();
+		if (maxAccountNumber == currentNewUser) {
+			std::cout << "Sorry, we aren't accepting any new accounts." << std::endl;
+			system("Pause");
+			ExitProgram();
+		}
+		else {
+			NameAccept();
+		}
 	}
 	else {
 		std::cout << "Please enter yes or no." << std::endl;
@@ -94,9 +114,9 @@ void ReadFile()
 		// Output the text from the file
 		std::cout << myText << std::endl;
 	}
-
 	// Close the file
 	MyReadFile.close();
+	NewUserCheck();
 }
 
 void ExitProgram() {
